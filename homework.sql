@@ -33,19 +33,17 @@ WHERE customer_id IN (
 --Answer: 135 customers
 
 -- 4. List all customers that live in Nepal (use the city table)
-SELECT first_name, last_name
+SELECT first_name, last_name, country
 FROM customer
-WHERE address_id IN (
-    SELECT customer.address_id
-    FROM customer
-    INNER JOIN address
-    ON customer.address_id = address.address_id
-    INNER JOIN city
-    ON address.address_id = city.city_id
-    WHERE city = 'Nepal'
-);
+INNER JOIN address
+ON customer.address_id = address.address_id
+INNER JOIN city
+ON address.city_id = city.city_id
+INNER JOIN country
+ON city.country_id = country.country_id
+WHERE country = 'Nepal';
 
---Answer: None
+--Answer: Kevin Schuler
 
 -- 5. Which staff member had the most transactions?  
 SELECT first_name, last_name
